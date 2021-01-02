@@ -1,4 +1,21 @@
+"""
+trosi: format converter
+https://github.com/joocer/trosi
 
+(C) 2021 Justin Joyce.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
 import sys
 import os
 import csv
@@ -46,13 +63,12 @@ input_stream = get_input_stream()
 
 # if help requested, display help and exit with no error
 if show_help:
-    print("Usage: trosi [FILE] [-o OUTPUTFILE] [--verbose] [--help]")
+    print("Usage: trosi [FILE] [-o OUTPUTFILE] [--help]")
     print("convert INPUTFILE to a jsonl formatted file")
     print("Example: trosi data.csv -o data.jsonl")
     print()
     print("  FILE\t\tfile to convert")
     print("  -o\t\tfile to save to")
-    print("  -v, --verbose\tflag to increase the amount of logging")
     print("  -h, --help\tdisplay this help text and exit")
     print()
     print("When FILE is -, standard input in read.")
@@ -73,13 +89,14 @@ if not out_file:
 with open(out_file, 'w', encoding='utf8') as of:
 
     csv_reader = csv.reader(input_stream)
-    headers = next(csv_reader)  # read the reader row
+    headers = next(csv_reader, [])  # read the reader row
     # Iterate over each row in the csv using reader object
     counter = 0
     for counter, row in enumerate(csv_reader):
         # row variable is a list that represents a row in csv
         of.write(json.dumps(dict(zip(headers, row))).decode() + '\n')
 
+# zero is zero, otherwise it's +1
 if counter > 0:
     counter += 1
 
