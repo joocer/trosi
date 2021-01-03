@@ -58,7 +58,7 @@ verbose      = '--verbose' in sys.argv or '-v' in sys.argv
 show_help    = '-?' in sys.argv or '-h' in sys.argv or '--help' in sys.argv
 no_headers   = '-no' in sys.argv
 out_file     = get_parameter_value('-o')
-input_filename = safe_get(sys.argv, 1)
+input_filename = safe_get(sys.argv, 1, '')
 input_stream = get_input_stream()
 
 # if help requested, display help and exit with no error
